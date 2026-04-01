@@ -21,12 +21,21 @@ services:
     depends_on:
       - db
 
+  frontend_build:
+    image: node:18
+    working_dir: /app
+    volumes:
+      - ./frontend:/app
+      - static:/static
+    command: sh -c "npm ci && npm run build && cp -r /app/build/. /static/"
+
   frontend:
     build: ./frontend/
     env_file: .env
-    command: cp -r /app/build/. /static/
-    volumes:
-      - static:/static
+    ports:
+      - "8000:8000"
+    depends_on:
+      - frontend_build
 
   gateway:
     build: ./nginx/
