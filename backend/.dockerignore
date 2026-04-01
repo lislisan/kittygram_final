@@ -1,8 +1,9 @@
 venv
 .git
 .env
-*.pyc
 __pycache__
+*.pyc
+*.pyo
+*.pyd
+.DS_Store
 db.sqlite3
-media
-static
